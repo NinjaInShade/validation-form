@@ -1,0 +1,9 @@
+body {
+  font-family: 'Slabo 27px', serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background-color: rgb(172, 213, 230);
+  /* background: linear-gradient(90deg, rgba(150, 83, 246, 1) 0%, rgba(161, 70, 226, 1) 100%); */
+
+}
