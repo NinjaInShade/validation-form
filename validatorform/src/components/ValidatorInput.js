@@ -27,8 +27,10 @@ export default function ValidatorInput(props) {
         }}
         onChange={inputChangeHandler}
       />
-      <MinLength setMinLengthValid={setMinLengthValid} inputValue={inputValue} minLength={6} minLengthValid={minLengthValid} />
-      <Capital capitalValid={capitalValid} inputValue={inputValue} setCapitalValid={setCapitalValid} />
+      {props.validators.includes("MinLength") && (
+        <MinLength setMinLengthValid={setMinLengthValid} inputValue={inputValue} minLength={6} minLengthValid={minLengthValid} />
+      )}
+      {props.validators.includes("Capital") && <Capital capitalValid={capitalValid} inputValue={inputValue} setCapitalValid={setCapitalValid} />}
     </div>
   );
 }

@@ -41,3 +41,6 @@ Validators prop is an array of validator names. The names are the components fou
 The button for testing doesn't lead to anywhere and doesn't submit anywhere. To change this -
 
 - in app.js there is a submitHandler function. Customize this to your needs.
+
+**changing minLength's validation requirement**
+Right now you have to manually enter the number in ValidatorInput.js and will apply to all minLength validations
