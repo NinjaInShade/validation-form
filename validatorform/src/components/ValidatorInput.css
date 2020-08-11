@@ -1,0 +1,38 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 15px 20px 15px;
+}
+
+.label {
+  font-weight: 900;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.input {
+  border-radius: 2px;
+  min-height: 30px;
+  border-width: 1px;
+  box-shadow: 0px 0px 6px -3px rgba(0, 0, 0, 0.55);
+  outline: none;
+  padding: 2px 10px 2px 10px;
+  margin-bottom: 10px;
+  font-weight: 900;
+}
+
+.validatorWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon {
+  margin-left: -2px;
+}
+
+.validatorText {
+  font-weight: 700;
+  margin: 0;
+  padding-left: 10px;
+}
