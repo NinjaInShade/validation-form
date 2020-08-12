@@ -44,3 +44,6 @@ The button for testing doesn't lead to anywhere and doesn't submit anywhere. To 
 
 **changing minLength's validation requirement**
 Right now you have to manually enter the number in ValidatorInput.js and will apply to all minLength validations
+
+**do password fields automatically include a show/hide toggle icon by default?**
+Absolutely. I thought this was the easiest way as its the most common practice to be able to see password if you wish.
