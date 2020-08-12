@@ -1,7 +1,19 @@
 .wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 0px 15px 20px 15px;
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 34%;
+  left: 5%;
+  cursor: pointer;
+}
+
+.passwordPadding {
+  padding-left: 13% !important;
 }
 
 .label {

@@ -29,9 +29,10 @@ function App() {
         <ValidatorInput
           lightColour={blueTheme.lightColour}
           darkestColour={blueTheme.darkestColour}
-          label="Email"
+          label="Username"
           validators={["MinLength", "Capital"]}
         />
+        <ValidatorInput lightColour={blueTheme.lightColour} darkestColour={blueTheme.darkestColour} label="Email" validators={["Email"]} />
         <ValidatorInput lightColour={blueTheme.lightColour} darkestColour={blueTheme.darkestColour} label="Password" validators={["MinLength"]} />
       </form>
       <button
