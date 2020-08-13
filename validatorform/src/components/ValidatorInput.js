@@ -11,10 +11,6 @@ export default function ValidatorInput(props) {
   const [inputValue, setInputValue] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
-  const [minLengthValid, setMinLengthValid] = useState(false);
-  const [capitalValid, setCapitalValid] = useState(false);
-  const [emailValid, setEmailValid] = useState(false);
-
   function inputChangeHandler(e) {
     setInputValue(e.target.value);
   }
@@ -46,11 +42,12 @@ export default function ValidatorInput(props) {
         <img src={passwordShown} alt="passwordToggle" className="passwordToggle" onClick={passwordToggleHandler} />
       )}
 
-      {props.validators.includes("MinLength") && (
-        <MinLength setMinLengthValid={setMinLengthValid} inputValue={inputValue} minLength={6} minLengthValid={minLengthValid} />
-      )}
-      {props.validators.includes("Capital") && <Capital capitalValid={capitalValid} inputValue={inputValue} setCapitalValid={setCapitalValid} />}
-      {props.validators.includes("Email") && <Email inputValue={inputValue} emailValid={emailValid} setEmailValid={setEmailValid} />}
+      {/* Validators */}
+      {props.validators.includes("MinLength") && <MinLength inputValue={inputValue} minLength={6} />}
+
+      {props.validators.includes("Capital") && <Capital inputValue={inputValue} />}
+
+      {props.validators.includes("Email") && <Email inputValue={inputValue} />}
     </div>
   );
 }

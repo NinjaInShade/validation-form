@@ -38,7 +38,7 @@ If the label is password, the input field will be configured to not show what th
 Validators prop is an array of validator names. The names are the components found in the validators folder.
 
 **button/form submitting functionality**
-The button for testing doesn't lead to anywhere and doesn't submit anywhere. To change this -
+The button tells you whever the form is overall valid or not. To change this -
 
 - in app.js there is a submitHandler function. Customize this to your needs.
 

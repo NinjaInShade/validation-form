@@ -1,31 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../components/ValidatorInput.css";
 import circleX from "../static/circleX.svg";
 import circleCheck from "../static/circleCheck.svg";
 
 export default function MinLength(props) {
+  const [minLengthValid, setMinLengthValid] = useState(false);
+
+  const { inputValue, minLength } = props;
   const errorColour = "#a8324a";
   const correctColour = "#4CAF50";
 
   useEffect(() => {
-    if (!props.inputValue) {
+    if (!inputValue) {
       return;
     }
 
-    if (props.inputValue.length < props.minLength) {
-      props.setMinLengthValid(false);
+    if (inputValue.length < minLength) {
+      setMinLengthValid(false);
     } else {
-      props.setMinLengthValid(true);
+      setMinLengthValid(true);
     }
-  }, [props]);
+  }, [inputValue, minLength]);
 
   return (
     <React.Fragment>
       <div className="validatorWrapper">
         <i className="icon">
-          <img src={props.minLengthValid ? circleCheck : circleX} alt="validity" />
+          <img src={minLengthValid ? circleCheck : circleX} alt="validity" />
         </i>
-        <p className="validatorText" style={{ color: props.minLengthValid ? correctColour : errorColour }}>
+        <p className="validatorText" style={{ color: minLengthValid ? correctColour : errorColour }}>
           Atleast {props.minLength} characters.
         </p>
       </div>

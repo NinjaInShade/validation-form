@@ -13,9 +13,13 @@ body {
   width: 40%;
   height: auto;
   margin: auto;
-  margin-top: 20px;
-  padding: 3px;
+  transform: translate(0%, 20%);
+  padding: 7px;
   border-radius: 8px;
+}
+
+.body {
+  position: relative;
 }
 
 h1 {
@@ -32,6 +36,20 @@ button {
   outline: none;
   text-align: center;
   width: 90%;
+  cursor: pointer;
+}
+
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+.ripple:hover {
+  background: #5e44f1 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+}
+.ripple:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
 }
 
 .buttonText {
@@ -40,9 +58,48 @@ button {
   margin: 30px;
 }
 
+.modal {
+  position: absolute;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  background-color: rgb(214, 235, 250);
+  transform: translate(-50%, -50%);
+  height: 40%;
+  max-width: 75%;
+  border-radius: 4px;
+  align-items: center;
+  box-shadow: 0px 0px 6px -3px rgba(0, 0, 0, 0.55);
+}
+
+.modalText {
+  text-align: center;
+  font-weight: 700;
+  word-wrap: break-word;
+  width: 90%;
+  padding: 0px 30px 0px 30px;
+  font-size: 1rem;
+}
+
+.modalClose {
+  align-self: flex-start;
+  cursor: pointer;
+  padding: 10px 10px 0px 0px;
+  width: 25px;
+  height: 25px;
+}
+
 @media (min-width: 600px) {
   .cardContainer {
     width: 35%;
+  }
+
+  .modal {
+    max-width: 60%;
+  }
+
+  .modalText {
+    font-size: 1.4rem;
   }
 }
 
@@ -50,10 +107,36 @@ button {
   .cardContainer {
     width: 25%;
   }
+
+  .modalText {
+    font-size: 1.8rem;
+  }
+
+  .modal {
+    max-width: 50%;
+  }
+
+  .modalClose {
+    width: 35px;
+    height: 35px;
+  }
 }
 
 @media (min-width: 1550px) {
   .cardContainer {
     width: 15%;
+  }
+
+  .modalText {
+    font-size: 2rem;
+  }
+
+  .modal {
+    max-width: 40%;
+  }
+
+  .modalClose {
+    height: 40px;
+    width: 40px;
   }
 }
