@@ -19,8 +19,10 @@ function App() {
     openModal();
   }
 
-  function openModal() {
-    setShowModal(true);
+  async function openModal() {
+    await setTimeout(function () {
+      setShowModal(true);
+    }, 500);
   }
 
   function closeModal() {
