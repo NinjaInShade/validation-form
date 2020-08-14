@@ -19,6 +19,10 @@ export default function ValidatorInput(props) {
     showPassword === false ? setShowPassword(true) : setShowPassword(false);
   }
 
+  function callback(num) {
+    props.callback(num);
+  }
+
   return (
     <div className="wrapper">
       <p className="label" style={{ color: `${props.darkestColour}` }}>
@@ -43,11 +47,11 @@ export default function ValidatorInput(props) {
       )}
 
       {/* Validators */}
-      {props.validators.includes("MinLength") && <MinLength inputValue={inputValue} minLength={6} />}
+      {props.validators.includes("MinLength") && <MinLength inputValue={inputValue} minLength={6} callback={callback} calling={props.calling} />}
 
-      {props.validators.includes("Capital") && <Capital inputValue={inputValue} />}
+      {props.validators.includes("Capital") && <Capital inputValue={inputValue} callback={callback} calling={props.calling} />}
 
-      {props.validators.includes("Email") && <Email inputValue={inputValue} />}
+      {props.validators.includes("Email") && <Email inputValue={inputValue} callback={callback} calling={props.calling} />}
     </div>
   );
 }

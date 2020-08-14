@@ -4,7 +4,7 @@ import circleX from "../static/circleX.svg";
 import circleCheck from "../static/circleCheck.svg";
 
 export default function Capital(props) {
-  const [capitalValid, setCapitalValid] = useState(false);
+  const [capitalValid, setCapitalValid] = useState(null);
 
   const { inputValue } = props;
   const errorColour = "#a8324a";
@@ -32,6 +32,20 @@ export default function Capital(props) {
       }
     }
   }, [inputValue]);
+
+  useEffect(() => {
+    // Prevents first render interefering.
+    if (capitalValid === null) {
+      return;
+    }
+
+    if (props.calling) {
+      function callback(num) {
+        props.callback(num);
+      }
+      capitalValid ? callback(1) : callback(0);
+    }
+  }, [capitalValid, props]);
 
   return (
     <React.Fragment>

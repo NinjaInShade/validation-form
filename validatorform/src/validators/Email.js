@@ -22,6 +22,20 @@ export default function Email(props) {
     }
   }, [inputValue]);
 
+  useEffect(() => {
+    // Prevents first render interefering.
+    if (emailValid === null) {
+      return;
+    }
+
+    if (props.calling) {
+      function callback(num) {
+        props.callback(num);
+      }
+      emailValid ? callback(1) : callback(0);
+    }
+  }, [emailValid, props]);
+
   return (
     <React.Fragment>
       <div className="validatorWrapper">

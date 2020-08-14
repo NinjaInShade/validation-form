@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import close from "./static/close.svg";
 
@@ -11,13 +11,43 @@ const blueTheme = {
 
 const formTitle = "Signup";
 
+const inputs = [
+  { label: "Username", validators: ["MinLength"] },
+  { label: "Email", validators: ["Email"] },
+  { label: "Password", validators: ["MinLength", "Capital"] },
+];
+
 function App() {
   const [showModal, setShowModal] = useState(false);
+  const [overallValid, setOverallValid] = useState(false);
+
+  const [calling, setCalling] = useState(true);
+  const [validAmount, setValidAmount] = useState(0);
+  const validatorAmount = inputs.reduce((carry, { validators }) => carry + validators.length, 0);
+
+  let finalNum = 0;
+
+  function callback(num) {
+    finalNum = finalNum + num;
+    setValidAmount(finalNum);
+    setCalling(false);
+  }
 
   function submitHandler(e) {
+    setCalling(true);
     e.preventDefault();
     openModal();
   }
+
+  useEffect(() => {
+    if (validatorAmount === validAmount) {
+      // All inputs are validated.
+      setOverallValid(true);
+    } else {
+      // Not all inputs are correctly validated.
+      setOverallValid(false);
+    }
+  }, [validAmount, validatorAmount]);
 
   async function openModal() {
     await setTimeout(function () {
@@ -34,7 +64,8 @@ function App() {
       <div style={showModal ? { background: "rgba(0, 0, 0, 0.7)", height: "100vh", width: "100%", position: "absolute", zIndex: "500" } : {}}></div>
       <div className="modal" style={showModal ? { display: "flex" } : { display: "none" }}>
         <p className="modalText" style={{ color: blueTheme.darkestColour }}>
-          You have clicked the button. Add confirm of form validity at some point for improvement.
+          The form is <span style={overallValid ? { color: `#4CAF50` } : { color: "#a8324a" }}>{overallValid ? "valid" : "invalid"}</span>. Please
+          make sure the input requirements have been met.
         </p>
         <img src={close} alt="close" onClick={closeModal} className="modalClose" />
       </div>
@@ -47,14 +78,21 @@ function App() {
       >
         <h1 style={{ color: `${blueTheme.darkestColour}` }}>{formTitle}</h1>
         <form>
-          <ValidatorInput lightColour={blueTheme.lightColour} darkestColour={blueTheme.darkestColour} label="Username" validators={["MinLength"]} />
-          <ValidatorInput lightColour={blueTheme.lightColour} darkestColour={blueTheme.darkestColour} label="Email" validators={["Email"]} />
-          <ValidatorInput
-            lightColour={blueTheme.lightColour}
-            darkestColour={blueTheme.darkestColour}
-            label="Password"
-            validators={["MinLength", "Capital"]}
-          />
+          <React.Fragment>
+            {inputs.map(({ validators, label }, index) => {
+              return (
+                <ValidatorInput
+                  validators={validators}
+                  key={index}
+                  lightColour={blueTheme.lightColour}
+                  darkestColour={blueTheme.darkestColour}
+                  label={label}
+                  callback={callback}
+                  calling={calling}
+                />
+              );
+            })}
+          </React.Fragment>
         </form>
         <button
           type="submit"
@@ -63,7 +101,6 @@ function App() {
           className="ripple"
         >
           <span className="buttonText" style={{ color: `${blueTheme.darkestColour}` }}>
-            {/* Add functionalility telling whever form is valid or not */}
             Signup
           </span>
         </button>

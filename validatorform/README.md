@@ -25,7 +25,6 @@ In app.js you can change the form title and the theme colours for the form.
 There are three colours at the moment with increasing shades -
 
 - lightColour
-- darkColour
 - darkestColour
 
 **validator icons**
@@ -33,9 +32,9 @@ To change incorrect/correct validation icons you can find the svg's stored in th
 Replace with your own icons if you would like.
 
 **adding more input fields?**
-In app.js just insert more <ValidatorInput /> components. Pass the colour, label, and validator props to it.
+In app.js just insert a new object into `const inputs = [{...}]` on line 14. Pass the label and validators.
 If the label is password, the input field will be configured to not show what the user types(password field).
-Validators prop is an array of validator names. The names are the components found in the validators folder.
+Validators is an array of validator names. The names are the components found in the validators folder.
 
 **button/form submitting functionality**
 The button tells you whever the form is overall valid or not. To change this -

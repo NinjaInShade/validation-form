@@ -22,6 +22,20 @@ export default function MinLength(props) {
     }
   }, [inputValue, minLength]);
 
+  useEffect(() => {
+    // Prevents first render interefering.
+    if (minLengthValid === null) {
+      return;
+    }
+
+    if (props.calling) {
+      function callback(num) {
+        props.callback(num);
+      }
+      minLengthValid ? callback(1) : callback(0);
+    }
+  }, [minLengthValid, props]);
+
   return (
     <React.Fragment>
       <div className="validatorWrapper">
