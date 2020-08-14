@@ -10,6 +10,7 @@ const blueTheme = {
 };
 
 const formTitle = "Signup";
+const buttonText = "Signup";
 
 const inputs = [
   { label: "Username", validators: ["MinLength"] },
@@ -64,8 +65,8 @@ function App() {
       <div style={showModal ? { background: "rgba(0, 0, 0, 0.7)", height: "100vh", width: "100%", position: "absolute", zIndex: "500" } : {}}></div>
       <div className="modal" style={showModal ? { display: "flex" } : { display: "none" }}>
         <p className="modalText" style={{ color: blueTheme.darkestColour }}>
-          The form is <span style={overallValid ? { color: `#4CAF50` } : { color: "#a8324a" }}>{overallValid ? "valid" : "invalid"}</span>. Please
-          make sure the input requirements have been met.
+          The form is <span style={overallValid ? { color: `#4CAF50` } : { color: "#a8324a" }}>{overallValid ? "valid" : "invalid"}</span>.{" "}
+          {overallValid ? "Great, the form is valid!" : "Didn't pass validations."}
         </p>
         <img src={close} alt="close" onClick={closeModal} className="modalClose" />
       </div>
@@ -101,7 +102,7 @@ function App() {
           className="ripple"
         >
           <span className="buttonText" style={{ color: `${blueTheme.darkestColour}` }}>
-            Signup
+            {buttonText}
           </span>
         </button>
       </section>

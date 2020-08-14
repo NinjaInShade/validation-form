@@ -13,7 +13,7 @@
 }
 
 .passwordPadding {
-  padding-left: 13% !important;
+  padding-left: 11% !important;
 }
 
 .label {
@@ -47,4 +47,17 @@
   font-weight: 700;
   margin: 0;
   padding-left: 10px;
+}
+
+@media (min-width: 1550px) {
+  .passwordToggle {
+    position: absolute;
+    top: 27%;
+    left: 3.5%;
+    cursor: pointer;
+  }
+
+  .passwordPadding {
+    padding-left: 9% !important;
+  }
 }

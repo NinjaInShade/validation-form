@@ -10,7 +10,7 @@ body {
 .cardContainer {
   background-color: white;
   box-shadow: 0px 0px 6px -3px rgba(0, 0, 0, 0.55);
-  width: 40%;
+  width: 80%;
   height: auto;
   margin: auto;
   transform: translate(0%, 20%);
@@ -91,7 +91,7 @@ button {
 
 @media (min-width: 600px) {
   .cardContainer {
-    width: 35%;
+    width: 60%;
   }
 
   .modal {
@@ -105,7 +105,7 @@ button {
 
 @media (min-width: 1000px) {
   .cardContainer {
-    width: 25%;
+    width: 40%;
   }
 
   .modalText {
@@ -124,7 +124,7 @@ button {
 
 @media (min-width: 1550px) {
   .cardContainer {
-    width: 15%;
+    width: 20%;
   }
 
   .modalText {
