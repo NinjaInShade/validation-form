@@ -1,111 +1,91 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import close from "./static/close.svg";
 
-import ValidatorInput from "./components/ValidatorInput";
-
-const blueTheme = {
-  lightColour: "#A8DCF3",
-  darkestColour: "#417397",
-};
-
-const formTitle = "Signup";
-const buttonText = "Signup";
-
-const inputs = [
-  { label: "Username", validators: ["MinLength"] },
-  { label: "Email", validators: ["Email"] },
-  { label: "Password", validators: ["MinLength", "Capital"] },
-];
+import InputGroup from "./components/InputGroup/InputGroup";
+import Email from "./validators/Email";
+import Capital from "./validators/Capital";
+import MinLength from "./validators/MinLength";
 
 function App() {
-  const [showModal, setShowModal] = useState(false);
-  const [overallValid, setOverallValid] = useState(false);
+  const [input1, setInput1] = useState("");
+  const [input2, setInput2] = useState("");
+  const [input3, setInput3] = useState("");
+  const [show, setShow] = useState(false);
+  const [errors, setErrors] = useState({
+    username: [{ msg: "Must be 8 characters", valid: false }],
+    email: [{ msg: "Must be a valid email", valid: false }],
+    password: [
+      { msg: "Must be 8 characters", valid: false },
+      { msg: "Atleast one capital", valid: false },
+    ],
+  });
 
-  const [calling, setCalling] = useState(true);
-  const [validAmount, setValidAmount] = useState(0);
-  const validatorAmount = inputs.reduce((carry, { validators }) => carry + validators.length, 0);
-
-  let finalNum = 0;
-
-  function callback(num) {
-    finalNum = finalNum + num;
-    setValidAmount(finalNum);
-    setCalling(false);
+  function input1Handler(e) {
+    setInput1(e.target.value);
+    const result = MinLength(e.target.value, 8);
+    setErrors((prev) => {
+      return {
+        ...prev,
+        username: prev.username.map((old, index) => (index === 0 ? { ...old, valid: result } : old)),
+      };
+    });
   }
 
-  function submitHandler(e) {
-    setCalling(true);
-    e.preventDefault();
-    openModal();
+  function input2Handler(e) {
+    setInput2(e.target.value);
+    const result = Email(e.target.value);
+    setErrors((prev) => {
+      return {
+        ...prev,
+        email: prev.email.map((old, index) => (index === 0 ? { ...old, valid: result } : old)),
+      };
+    });
   }
 
-  useEffect(() => {
-    if (validatorAmount === validAmount) {
-      // All inputs are validated.
-      setOverallValid(true);
-    } else {
-      // Not all inputs are correctly validated.
-      setOverallValid(false);
-    }
-  }, [validAmount, validatorAmount]);
-
-  async function openModal() {
-    await setTimeout(function () {
-      setShowModal(true);
-    }, 500);
+  function input3Handler(e) {
+    setInput3(e.target.value);
+    const result = MinLength(e.target.value, 8);
+    const result2 = Capital(e.target.value);
+    setErrors((prev) => {
+      return {
+        ...prev,
+        password: prev.password.map((old, index) => (index === 0 ? { ...old, valid: result } : index === 1 ? { ...old, valid: result2 } : old)),
+      };
+    });
   }
 
-  function closeModal() {
-    setShowModal(false);
+  function formHandler() {
+    Object.values(errors).some((arr) => arr.some((dataset) => !dataset.valid)) ? console.log("INVALID") : console.log("VALID");
   }
 
   return (
     <div className="body">
-      <div style={showModal ? { background: "rgba(0, 0, 0, 0.7)", height: "100vh", width: "100%", position: "absolute", zIndex: "500" } : {}}></div>
-      <div className="modal" style={showModal ? { display: "flex" } : { display: "none" }}>
-        <p className="modalText" style={{ color: blueTheme.darkestColour }}>
-          The form is <span style={overallValid ? { color: `#4CAF50` } : { color: "#a8324a" }}>{overallValid ? "valid" : "invalid"}</span>.{" "}
-          {overallValid ? "Great, the form is valid!" : "Didn't pass validations."}
-        </p>
-        <img src={close} alt="close" onClick={closeModal} className="modalClose" />
-      </div>
-      <section
-        className="cardContainer"
-        style={{
-          backgroundColor: `white`,
-          border: `1px solid ${blueTheme.darkColour}`,
-        }}
-      >
-        <h1 style={{ color: `${blueTheme.darkestColour}` }}>{formTitle}</h1>
-        <form>
-          <React.Fragment>
-            {inputs.map(({ validators, label }, index) => {
-              return (
-                <ValidatorInput
-                  validators={validators}
-                  key={index}
-                  lightColour={blueTheme.lightColour}
-                  darkestColour={blueTheme.darkestColour}
-                  label={label}
-                  callback={callback}
-                  calling={calling}
-                />
-              );
-            })}
-          </React.Fragment>
-        </form>
-        <button
-          type="submit"
-          style={{ borderColor: `${blueTheme.darkestColour}`, backgroundColor: `${blueTheme.lightColour}` }}
-          onClick={submitHandler}
-          className="ripple"
-        >
-          <span className="buttonText" style={{ color: `${blueTheme.darkestColour}` }}>
-            {buttonText}
-          </span>
-        </button>
-      </section>
+      <InputGroup.Container maxWidth="400px">
+        <InputGroup.Title>Sign up</InputGroup.Title>
+        <InputGroup>
+          <InputGroup.Label>Username</InputGroup.Label>
+          <InputGroup.Input placeholder="Enter username" value={input1} onChange={input1Handler}></InputGroup.Input>
+        </InputGroup>
+        <InputGroup.ErrorText>{errors.username}</InputGroup.ErrorText>
+
+        <InputGroup>
+          <InputGroup.Label>Email</InputGroup.Label>
+          <InputGroup.Input placeholder="Enter email" value={input2} onChange={input2Handler}></InputGroup.Input>
+        </InputGroup>
+        <InputGroup.ErrorText>{errors.email}</InputGroup.ErrorText>
+
+        <InputGroup>
+          <InputGroup.Label>Password</InputGroup.Label>
+          <InputGroup.Input placeholder="Enter password" type={show ? "text" : "password"} value={input3} onChange={input3Handler}></InputGroup.Input>
+          <InputGroup.Item onClick={() => setShow(!show)}>
+            <i key={show ? "fas fa-eye" : "fas fa-eye-slash"}>
+              <span className={show ? "fas fa-eye" : "fas fa-eye-slash"}></span>
+            </i>
+          </InputGroup.Item>
+        </InputGroup>
+        <InputGroup.ErrorText>{errors.password}</InputGroup.ErrorText>
+        <button onClick={formHandler}>Submit</button>
+      </InputGroup.Container>
     </div>
   );
 }

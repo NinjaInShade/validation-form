@@ -1,62 +1,10 @@
-import React, { useEffect, useState } from "react";
-import "../components/ValidatorInput.css";
-import circleX from "../static/circleX.svg";
-import circleCheck from "../static/circleCheck.svg";
-
-export default function Capital(props) {
-  const [capitalValid, setCapitalValid] = useState(null);
-
-  const { inputValue } = props;
-  const errorColour = "#a8324a";
-  const correctColour = "#4CAF50";
-
-  useEffect(() => {
-    if (!inputValue) {
-      return;
+export default function Capital(input) {
+  const withoutSpecialChar = input.replace(/[^\w\s]/gi, "");
+  for (var i = 0; i < withoutSpecialChar.length; i++) {
+    if (withoutSpecialChar[i] === withoutSpecialChar[i].toUpperCase()) {
+      return true;
     }
+  }
 
-    for (var i = 0; i < inputValue.length; i++) {
-      var regex = /\d/g;
-      var pattern = /\W|_/g;
-      if (regex.test(inputValue[i]) || pattern.test(inputValue[i])) {
-        setCapitalValid(false);
-        continue;
-      }
-
-      if (inputValue[i] === inputValue[i].toUpperCase()) {
-        setCapitalValid(true);
-      } else {
-        if (inputValue === inputValue.toLowerCase()) {
-          setCapitalValid(false);
-        }
-      }
-    }
-  }, [inputValue]);
-
-  useEffect(() => {
-    // Prevents first render interefering.
-    if (capitalValid === null) {
-      return;
-    }
-
-    if (props.calling) {
-      function callback(num) {
-        props.callback(num);
-      }
-      capitalValid ? callback(1) : callback(0);
-    }
-  }, [capitalValid, props]);
-
-  return (
-    <React.Fragment>
-      <div className="validatorWrapper">
-        <i className="icon">
-          <img src={capitalValid ? circleCheck : circleX} alt="" />
-        </i>
-        <p className="validatorText" style={{ color: capitalValid ? correctColour : errorColour }}>
-          One capital letter.
-        </p>
-      </div>
-    </React.Fragment>
-  );
+  return false;
 }
