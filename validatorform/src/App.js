@@ -10,6 +10,7 @@ function App() {
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
+  const [buttonColour, setButtonColour] = useState("#dfe1e5");
   const [show, setShow] = useState(false);
   const [errors, setErrors] = useState({
     username: [{ msg: "Must be 8 characters", valid: false }],
@@ -55,7 +56,7 @@ function App() {
   }
 
   function formHandler() {
-    Object.values(errors).some((arr) => arr.some((dataset) => !dataset.valid)) ? console.log("INVALID") : console.log("VALID");
+    Object.values(errors).some((arr) => arr.some((dataset) => !dataset.valid)) ? setButtonColour("#B54248") : setButtonColour("#367B48");
   }
 
   return (
@@ -84,7 +85,9 @@ function App() {
           </InputGroup.Item>
         </InputGroup>
         <InputGroup.ErrorText>{errors.password}</InputGroup.ErrorText>
-        <button onClick={formHandler}>Submit</button>
+        <button onClick={formHandler} style={{ backgroundColor: buttonColour }}>
+          Submit
+        </button>
       </InputGroup.Container>
     </div>
   );
